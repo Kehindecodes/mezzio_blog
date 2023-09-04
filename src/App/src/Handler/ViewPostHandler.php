@@ -12,8 +12,6 @@ use Laminas\Diactoros\Response\JsonResponse;
 class ViewPostHandler implements RequestHandlerInterface
 {
 
-
-
     // display a single post using its id
 
     public function handle(ServerRequestInterface  $request): ResponseInterface
