@@ -42,7 +42,8 @@ use Psr\Container\ContainerInterface;
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
 
-    $app->get('/posts/:id', App\Handler\ViewPostHandler::class, 'post.view');
+    // $app->get('/posts/:id', App\Handler\ViewPostHandler::class, 'post.view');
+    $app->get('/posts/:id', App\Middleware\GetPost::class, 'post.view');
 
     // $app->get('/posts', App\Handler\ListPostsHandler::class, 'posts.list');
     $app->get('/posts', ListPosts::class, 'posts.list');

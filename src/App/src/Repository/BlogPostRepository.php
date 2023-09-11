@@ -35,7 +35,14 @@ class BlogPostRepository extends EntityRepository
     // display post by id
     public function getBlogPost($id)
     {
-        return $this->find($id);
+        $post = $this->find($id);
+        return [
+            'id' => $post->getId(),
+            'title' => $post->getTitle(),
+            'content' => $post->getContent(),
+            'image' => $post->getImage(),
+            'category' => $post->getCategory(),
+        ];
     }
 
     // create new post
