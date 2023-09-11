@@ -18,19 +18,12 @@ use Doctrine\DBAL\Types\Types;
 #[ORM\Entity(repositoryClass: BlogPostRepository::class)]
 class  BlogPost
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+
     #[ORM\Id()]
     #[ORM\GeneratedValue()]
     #[ORM\Column(type: Types::INTEGER)]
     private $id;
 
-    /**
-     * @ORM\Column(type="string")
-     */
     #[ORM\Column(type: Types::STRING)]
     private $title;
 
@@ -46,9 +39,7 @@ class  BlogPost
     #[ORM\Column(type: Types::STRING)]
     private $image;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+
     #[ORM\Column(type: Types::STRING)]
     private $category;
 
@@ -76,5 +67,22 @@ class  BlogPost
     public  function setCategory($category)
     {
         $this->category = $category;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+    public function getImage()
+    {
+        return $this->image;
+    }
+    public function getCategory()
+    {
+        return $this->category;
+    }
+    public function getContent()
+    {
+        return $this->content;
     }
 }

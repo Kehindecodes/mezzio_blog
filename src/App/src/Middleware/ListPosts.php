@@ -15,16 +15,15 @@ use Psr\Http\Server\RequestHandlerInterface;
 class ListPosts implements MiddlewareInterface
 {
 
-    private $posts;
 
-    public function __construct($posts)
+
+    public function __construct(private BlogPostRepository $blogRepository)
     {
-        $this->posts = $posts;
     }
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-
+        $posts = $this->blogRepository->getBlogPosts();
         // display posts
-        return new JsonResponse($this->posts);
+        return new JsonResponse($posts);
     }
 }

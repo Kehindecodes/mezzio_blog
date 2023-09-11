@@ -20,28 +20,7 @@ class CreatePost implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        // $posts = include __DIR__ . '../../../../../data/posts.php';
-        // $updatedPost = [];
 
-        // $reqBody = $request->getParsedBody();
-        // // set request body to $updatedPost
-        // $id = isset($reqBody['id']) ? $reqBody['id'] : null;
-        // $title = $reqBody['title'] ?? null;
-        // $image = $reqBody['image'] ?? null;
-        // $category = $reqBody['category'] ?? null;
-        // $content = $reqBody['content'] ?? null;
-
-        // $updatedPost['id'] = intval($id);
-        // $updatedPost['title'] = $title;
-        // $updatedPost['image'] = $image;
-        // $updatedPost['category'] = $category;
-        // $updatedPost['body'] = $content;
-
-        // // set updated post to $posts
-        // $posts[] = $updatedPost;
-
-
-        // $response = $handler->handle($request);
         $postData = $request->getParsedBody();
 
         $newPost = $this->blogPostRepository->createBlogPost($postData);

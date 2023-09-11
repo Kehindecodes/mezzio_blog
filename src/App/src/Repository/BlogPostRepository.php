@@ -17,7 +17,19 @@ class BlogPostRepository extends EntityRepository
     // display all posts
     public function getBlogPosts()
     {
-        return $this->findAll();
+        $posts = $this->findAll();
+        $postsArray = [];
+
+        foreach ($posts as $post) {
+            $postsArray[] = [
+                'id' => $post->getId(),
+                'title' => $post->getTitle(),
+                'content' => $post->getContent(),
+                'image' => $post->getImage(),
+                'category' => $post->getCategory(),
+            ];
+        }
+        return $postsArray;
     }
 
     // display post by id
@@ -38,6 +50,12 @@ class BlogPostRepository extends EntityRepository
         $this->entityManager->persist($post);
         $this->entityManager->flush();
 
-        return $post;
+        return [
+            'id' => $post->getId(),
+            'title' => $post->getTitle(),
+            'content' => $post->getContent(),
+            'image' => $post->getImage(),
+            'category' => $post->getCategory(),
+        ];
     }
 }

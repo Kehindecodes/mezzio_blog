@@ -27,7 +27,7 @@ final class Version20230911155402 extends AbstractMigration
                 content LONGTEXT NOT NULL, 
                 image VARCHAR(255) NOT NULL, 
                 category VARCHAR(255) NOT NULL, 
-                PRIMARY KEY(id)
+                PRIMARY KEY(id),
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
             ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         ');

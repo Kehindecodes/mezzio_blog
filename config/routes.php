@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-use App\Middleware\CreatePost;
 use Mezzio\Application;
+use App\Middleware\ListPosts;
 use Mezzio\MiddlewareFactory;
+use App\Middleware\CreatePost;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -44,7 +45,7 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->get('/posts/:id', App\Handler\ViewPostHandler::class, 'post.view');
 
     // $app->get('/posts', App\Handler\ListPostsHandler::class, 'posts.list');
-    $app->get('/posts', App\Middleware\ListPosts::class, 'posts.list');
+    $app->get('/posts', ListPosts::class, 'posts.list');
     // $app->post('/posts', App\Handler\CreatePostHandler::class, 'posts.create');
 
     // $app->put('/posts/:id', App\Middleware\UpdatePost::class, 'posts.update');
