@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Doctrine\EntityManagerFactory;
+use App\Repository\BlogPostRepository;
+use App\Repository\BlogPostRepositoryFactory;
+use Doctrine\ORM\EntityManagerInterface;
+
 /**
  * The configuration provider for the App module
  *
@@ -36,6 +41,27 @@ class ConfigProvider
             ],
             'factories'  => [
                 Handler\HomePageHandler::class => Handler\HomePageHandlerFactory::class,
+                EntityManagerInterface::class => EntityManagerFactory::class,
+                // Configure the BlogPostRepository factory
+
+                BlogPostRepository::class => BlogPostRepositoryFactory::class,
+                // BlogPostRepository::class => function ($container) {
+                //     /** @var EntityManager $entityManager */
+                //     $entityManager = $container->get(EntityManager::class);
+                //     return $entityManager->getRepository(BlogPost::class);
+                // },
+
+                // Service\DatabaseStatusChecker::class => function ($container) {
+                //     $entityManager = $container->get(EntityManagerInterface::class);
+                //     return new DatabaseStatusChecker($entityManager);
+                // },
+
+                // // configure the CreatePostHandler
+                // Handler\CreatePostHandler::class => function ($container) {
+                //     $blogPostRepository = $container->get(BlogPostRepository::class);
+                //     $databaseStatusChecker = $container->get(DatabaseStatusChecker::class);
+                //     return new CreatePostHandler($blogPostRepository, $databaseStatusChecker);
+                // }
             ],
         ];
     }

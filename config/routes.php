@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Middleware\CreatePost;
 use Mezzio\Application;
 use Mezzio\MiddlewareFactory;
 use Psr\Container\ContainerInterface;
@@ -39,9 +40,21 @@ use Psr\Container\ContainerInterface;
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
+
     $app->get('/posts/:id', App\Handler\ViewPostHandler::class, 'post.view');
-    $app->get('/posts', App\Handler\ListPostsHandler::class, 'posts.list');
-    $app->post('/posts', App\Handler\CreatePostHandler::class, 'posts.create');
+
+    // $app->get('/posts', App\Handler\ListPostsHandler::class, 'posts.list');
+    $app->get('/posts', App\Middleware\ListPosts::class, 'posts.list');
+    // $app->post('/posts', App\Handler\CreatePostHandler::class, 'posts.create');
+
+    // $app->put('/posts/:id', App\Middleware\UpdatePost::class, 'posts.update');
+
+    $app->put('/posts/:id', App\Handler\UpdatePostHandler::class, 'posts.update');
+
+
+    $app->post('/posts', [
+        CreatePost::class,
+    ], 'createPost');
     // $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
     // $app->get('/hello', App\Handler\HelloWorldHandler::class, 'hello');
 };
