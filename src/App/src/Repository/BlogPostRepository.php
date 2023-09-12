@@ -65,4 +65,51 @@ class BlogPostRepository extends EntityRepository
             'category' => $post->getCategory(),
         ];
     }
+
+    // update post
+
+    public function updateBlogPost($id, array $data)
+    {
+        $post = $this->find($id);
+
+        if (!$post) {
+            // Handle the case where no post with the given ID was found
+            return null;
+        }
+
+        if (isset($data['title'])) {
+            $post->setTitle($data['title']);
+        }
+        if (isset($data['content'])) {
+            $post->setContent($data['content']);
+        }
+        if (isset($data['image'])) {
+            $post->setImage($data['image']);
+        }
+        if (isset($data['category'])) {
+            $post->setCategory($data['category']);
+        }
+
+        $this->entityManager->flush();
+
+        return [
+            'id' => $post->getId(),
+            'title' => $post->getTitle(),
+            'content' => $post->getContent(),
+            'image' => $post->getImage(),
+            'category' => $post->getCategory(),
+        ];
+    }
+
+
+    public function removePost($id)
+    {
+        $post = $this->find($id);
+
+        // delete post
+        $this->entityManager->remove($post);
+        $this->entityManager->flush();
+
+        return true;
+    }
 }

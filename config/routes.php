@@ -49,9 +49,10 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->get('/posts', ListPosts::class, 'posts.list');
     // $app->post('/posts', App\Handler\CreatePostHandler::class, 'posts.create');
 
-    // $app->put('/posts/:id', App\Middleware\UpdatePost::class, 'posts.update');
+    $app->post('/posts/:id', App\Middleware\UpdatePost::class, 'posts.update');
+    $app->delete('/posts/:id', App\Middleware\DeletePost::class, 'posts.delete');
 
-    $app->put('/posts/:id', App\Handler\UpdatePostHandler::class, 'posts.update');
+    // $app->put('/posts/:id', App\Handler\UpdatePostHandler::class, 'posts.update');
 
 
     $app->post('/posts', [
