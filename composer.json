@@ -52,9 +52,11 @@
     },
     "require": {
         "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+        "cloudinary/cloudinary_php": "^2.11",
         "composer/package-versions-deprecated": "^1.10.99",
         "doctrine/migrations": "^3.5",
         "doctrine/orm": "^2.16",
+        "guzzlehttp/guzzle": "^7.8",
         "laminas/laminas-component-installer": "^2.6 || ^3.0",
         "laminas/laminas-config-aggregator": "^1.6",
         "laminas/laminas-db": "^2.18",

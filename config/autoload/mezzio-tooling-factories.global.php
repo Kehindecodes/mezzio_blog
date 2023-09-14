@@ -20,6 +20,7 @@ return [
             App\Middleware\GetPost::class => App\Middleware\GetPostFactory::class,
             App\Middleware\ListPosts::class => App\Middleware\ListPostsFactory::class,
             App\Middleware\UpdatePost::class => App\Middleware\UpdatePostFactory::class,
+            App\Middleware\UploadFile::class => App\Middleware\UploadFileFactory::class,
         ],
     ],
 ];

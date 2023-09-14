@@ -52,6 +52,8 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->post('/posts/:id', App\Middleware\UpdatePost::class, 'posts.update');
     $app->delete('/posts/:id', App\Middleware\DeletePost::class, 'posts.delete');
 
+    // $app->post('/upload', App\Middleware\UploadFile::class, 'upload');
+
     // $app->put('/posts/:id', App\Handler\UpdatePostHandler::class, 'posts.update');
 
 

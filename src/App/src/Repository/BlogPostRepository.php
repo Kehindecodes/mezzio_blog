@@ -18,6 +18,10 @@ class BlogPostRepository extends EntityRepository
     public function getBlogPosts()
     {
         $posts = $this->findAll();
+
+        if (!$posts) {
+            return null;
+        }
         $postsArray = [];
 
         foreach ($posts as $post) {
@@ -36,6 +40,9 @@ class BlogPostRepository extends EntityRepository
     public function getBlogPost($id)
     {
         $post = $this->find($id);
+        if (!$post) {
+            return null;
+        }
         return [
             'id' => $post->getId(),
             'title' => $post->getTitle(),
@@ -48,11 +55,19 @@ class BlogPostRepository extends EntityRepository
     // create new post
     public function createBlogPost(array $data)
     {
+
+
         $post = new BlogPost();
+
+
         $post->setTitle($data['title']);
         $post->setContent($data['content']);
-        $post->setImage($data['image']);
+
         $post->setCategory($data['category']);
+
+        if (isset($data['image'])) {
+            $post->setImage($data['image']);
+        }
 
         $this->entityManager->persist($post);
         $this->entityManager->flush();

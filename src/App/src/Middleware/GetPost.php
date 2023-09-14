@@ -22,7 +22,11 @@ class GetPost implements MiddlewareInterface
     {
         // $response = $handler->handle($request);
         $id = (int)$request->getAttribute('id');
+
         $post = $this->blogRepository->getBlogPost($id);
+        if (!$post) {
+            return new JsonResponse(['message' => 'Post not found'], 404);
+        }
         return new JsonResponse($post);
     }
 }

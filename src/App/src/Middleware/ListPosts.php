@@ -22,7 +22,12 @@ class ListPosts implements MiddlewareInterface
     }
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+
         $posts = $this->blogRepository->getBlogPosts();
+
+        if (!$posts) {
+            return new JsonResponse(['message' => 'No posts to display'], 404);
+        }
         // display posts
         return new JsonResponse($posts);
     }
