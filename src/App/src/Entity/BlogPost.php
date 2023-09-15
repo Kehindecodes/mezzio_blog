@@ -9,13 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BlogPostRepository;
 use Doctrine\DBAL\Types\Types;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")
- * @ORM\Table(name="posts")
- */
 
-#[ORM\Table(name: "posts")]
+
 #[ORM\Entity(repositoryClass: BlogPostRepository::class)]
+#[ORM\Table(name: "posts")]
+
 class  BlogPost
 {
 
@@ -44,6 +42,21 @@ class  BlogPost
     private $category;
 
 
+    // return properties
+
+    public function getProperties()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'content' => $this->content,
+            'image' => $this->image,
+            'category' => $this->category,
+
+        ];
+    }
+
+
     public  function getId(): int
     {
         return $this->id;
@@ -64,7 +77,7 @@ class  BlogPost
         $this->image = $image;
     }
 
-    public  function setCategory($category)
+    public function setCategory($category)
     {
         $this->category = $category;
     }
@@ -73,15 +86,15 @@ class  BlogPost
     {
         return $this->title;
     }
-    public function getImage()
+    public function getImage(): string
     {
         return $this->image;
     }
-    public function getCategory()
+    public function getCategory(): string
     {
         return $this->category;
     }
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
