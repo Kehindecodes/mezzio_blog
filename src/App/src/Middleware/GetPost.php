@@ -23,6 +23,11 @@ class GetPost implements MiddlewareInterface
         // $response = $handler->handle($request);
         $id = (int)$request->getAttribute('id');
 
+        // // check if id is set
+        // if (!$id) {
+        //     return new JsonResponse(['message' => 'Invalid request: no ID provided'], 400);
+        // }
+
         $post = $this->blogRepository->getBlogPost($id);
         if (!$post) {
             return new JsonResponse(['message' => 'Post not found'], 404);

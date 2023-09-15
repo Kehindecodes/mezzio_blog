@@ -80,6 +80,10 @@ class BlogPostRepository extends EntityRepository
 
         $post = $this->qb->getQuery()->getOneOrNullResult();
 
+        if (!$post) {
+            return null;
+        }
+
         // $post = $this->find($id);
         // if (!$post) {
         //     return null;
@@ -257,11 +261,22 @@ class BlogPostRepository extends EntityRepository
 
     public function removePost($id)
     {
-        $post = $this->find($id);
+        $this->qb->delete(BlogPost::class, 'bp')
+            ->where('bp.id = :id');
+        $this->qb->setParameter('id', $id);
 
-        // delete post
-        $this->entityManager->remove($post);
-        $this->entityManager->flush();
+        $result =  $this->qb->getQuery()->execute();
+
+        if (!$result) {
+            return false;
+        }
+
+        // method 2
+        // $post = $this->find($id);
+
+        // // delete post
+        // $this->entityManager->remove($post);
+        // $this->entityManager->flush();
 
         return true;
     }
