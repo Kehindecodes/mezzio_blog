@@ -29,33 +29,12 @@ class CreatePost implements MiddlewareInterface
 
         $postData = $request->getParsedBody();
 
-        //  get upload image
-        $upload = $request->getUploadedFiles();
+        $uploadedImage = $request->getAttributes(UploadFile::class);
 
+        $postData['image'] = $uploadedImage;
 
-        //    check  if a  file was uploaded
-        if (isset($upload['image'])) {
-            //  get image from request
-            $uploadImg = $upload['image'];
+        var_dump($uploadedImage);
 
-            // get image path
-            $filePath = $uploadImg->getStream()->getMetadata('uri');
-
-            //    set up cloudinary
-            // $cloudinary = new Cloudinary($this->cloudinary);
-
-            // get configuration from cloudinary
-            $config = $this->cloudinary->configuration;
-
-            //   upload image to cloudinary
-            $uploadApi  = new UploadApi($config);
-
-            // $cloudinary = $uploadApi->getCloud();
-            $image = $uploadApi->upload($filePath, ['public_id' => $uploadImg->getClientFilename()]);
-            // Add image path to post data
-
-            $postData['image'] = $image['secure_url'];
-        }
 
 
         if ($postData['title'] == '' || $postData['content'] == '') {
@@ -64,14 +43,19 @@ class CreatePost implements MiddlewareInterface
             ], 400);
         }
 
-        $existingPost = $this->blogPostRepository->findOneBy(['title' => $postData['title']]);
-        $title = $existingPost->getTitle();
 
-        if ($postData['title'] == $title) {
-            return new JsonResponse([
-                'message' => 'This title already exists try another one',
-            ], 400);
+        $existingPost = $this->blogPostRepository->findOneBy(['title' => $postData['title']]);
+        if ($existingPost) {
+            $title = $existingPost->getTitle();
+            if ($postData['title'] == $title) {
+                return new JsonResponse([
+                    'message' => 'This title already exists try another one',
+                ], 400);
+            }
         }
+
+
+
 
         $newPost = $this->blogPostRepository->createBlogPost($postData);
 

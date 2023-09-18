@@ -6,6 +6,7 @@ use Mezzio\Application;
 use App\Middleware\ListPosts;
 use Mezzio\MiddlewareFactory;
 use App\Middleware\CreatePost;
+use App\Middleware\UploadFile;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -58,6 +59,7 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
 
 
     $app->post('/posts', [
+        UploadFile::class,
         CreatePost::class,
     ], 'createPost');
     // $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');

@@ -20,7 +20,7 @@ class  User
     private $id;
 
     #[ORM\Column(type: Types::STRING)]
-    private $userName;
+    private $username;
 
     #[ORM\Column(type: Types::STRING)]
     private $password;
@@ -28,8 +28,6 @@ class  User
     #[ORM\Column(type: Types::STRING)]
     private $email;
 
-    #[ORM\Column(type: Types::STRING)]
-    private $profileImage;
 
 
     // return properties
@@ -37,10 +35,10 @@ class  User
     {
         return [
             'id' => $this->id,
-            'userName' => $this->userName,
+            'userName' => $this->username,
             'password' => $this->password,
             'email' => $this->email,
-            'profileImage' => $this->profileImage,
+
         ];
     }
 
@@ -48,9 +46,9 @@ class  User
 
     // setters
 
-    public function setUserName(string $userName): string
+    public function setUsername(string $username): string
     {
-        return $this->userName = $userName;
+        return $this->username = $username;
     }
 
     public function setPassword(string $password): string
@@ -63,12 +61,6 @@ class  User
         return $this->email = $email;
     }
 
-    public function setProfileImage(string $profileImage): string
-    {
-        return $this->profileImage = $profileImage;
-    }
-
-
     // getters
 
     public function getId(): int
@@ -76,9 +68,9 @@ class  User
         return $this->id;
     }
 
-    public function getUserName(): string
+    public function getUsername(): string
     {
-        return $this->userName;
+        return $this->username;
     }
 
     public function getPassword(): string
@@ -89,10 +81,5 @@ class  User
     public function getEmail(): string
     {
         return $this->email;
-    }
-
-    public function getProfileImage(): string
-    {
-        return $this->profileImage;
     }
 }
